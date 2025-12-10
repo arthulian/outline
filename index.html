@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wisdom Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sage-green: #9CAF88;
+            --warm-beige: #F5F1E8;
+            --deep-navy: #2C3E50;
+            --soft-gold: #D4AF37;
+            --muted-rose: #E8D5D1;
+            --charcoal: #34495E;
+            --light-sage: #B8C5A6;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--warm-beige) 0%, #FEFCF8 100%);
+            color: var(--deep-navy);
+            overflow-x: hidden;
+            padding-top: 2rem;
+        }
+        
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Card Styles */
+        .virtue-card {
+            position: relative;
+            border-radius: 16px;
+            padding: 2.5rem; /* Increased padding slightly for larger text */
+            margin: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            min-height: 450px; /* Increased min-height to accommodate larger text */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .virtue-card-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .virtue-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* --- IMAGE PATHS PRESERVED & FONT SIZES UPDATED --- */
+        /* Base font size for cards set to 18pt */
+        
+        .virtue-card.critical-thinking {
+            background-image: url('critical-thinking.png');
+            color: white;
+            font-size: 18pt;
+        }
+        
+        .virtue-card.sense-making {
+            background-image: url('sense-making.png');
+            color: #8B0000;
+            font-size: 18pt;
+        }
+        
+        .virtue-card.objectivity {
+            background-image: url('impartiality.png');
+            font-size: 18pt;
+        }
+        
+        .virtue-card.self-control {
+            background-image: url('self-control.png');
+            color: black;
+            font-size: 18pt;
+        }
+        
+        .virtue-card.fairness {
+            background-image: url('fairness.png');
+            color: black;
+            font-size: 18pt;
+        }
+        
+        .virtue-card.perseverance {
+            background-image: url('persistence.png');
+            color: #87CEEB;
+            font-size: 18pt;
+        }
+        
+        .virtue-card.self-discipline {
+            background-image: url('moderation.png');
+            color: #00FF00;
+            font-size: 18pt;
+        }
+        
+        .virtue-card.self-efficacy {
+            background-image: url('self-confidence.png');
+            color: #8B0000;
+            font-size: 18pt;
+        }
+        
+        .virtue-card.temperance {
+            background-image: url('moderation.png');
+            color: #00FF00;
+            font-size: 18pt;
+        }
+        
+        .virtue-card.self-reflection {
+            background-image: url('self-reflection.png');
+            color: white;
+            font-size: 18pt;
+        }
+        
+        /* Typography Updates */
+        .virtue-card h3 {
+            color: inherit;
+            font-size: 22pt; /* Scaled up to maintain hierarchy with 18pt body */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .virtue-icon {
+            font-size: 3.5rem; /* Slightly larger icon */
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .virtue-function {
+            font-size: 18pt; /* Explicitly 18pt */
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .virtue-examples {
+            font-size: 18pt; /* Explicitly 18pt */
+            line-height: 1.5;
+        }
+        
+        .virtue-examples ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        .virtue-examples li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--deep-navy);
+        }
+
+        /* Animations */
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        @media (max-width: 768px) {
+            .section-title { font-size: 2rem; }
+            .virtue-card { margin: 0.5rem; padding: 1.5rem; min-height: 350px; }
+            /* Adjusted mobile size slightly but keeping it readable */
+            .virtue-card h3 { font-size: 20pt; }
+            .virtue-function, .virtue-examples { font-size: 16pt; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="virtues" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="section-title serif-font fade-in">The Ten Wisdom Virtues</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="virtue-card slide-in-left critical-thinking">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🔍</div>
+                        <h3>Critical Thinking</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Anchors choices in proof, consistency, probability, consensus, and relevance.</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Tag every assertion as Accurate, Inaccurate, or Partially Accurate</li>
+                                <li>Detect bias and abandon dogma</li>
+                                <li>Steer clear of blanket statements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right sense-making">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🧩</div>
+                        <h3>Sense-Making</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Integrates varied data into a single cohesive perception of reality.</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Construct rationales that hold up against the test of time</li>
+                                <li>Apply proven methods to interpret intricate contexts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-left objectivity">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">⚖️</div>
+                        <h3>Objectivity</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Mitigates cognitive biases through consistent, unbiased, rational scrutiny; guaranteeing impartiality.</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Apply the "Veil of ignorance" or adjust using Bayesian logic</li>
+                                <li>Summarize your emotion in one word to stay focused</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right self-control">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🎯</div>
+                        <h3>Self-Control</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Regulates urges, focus, and conduct in alignment with principles and end-goals.</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Postpone self-gratification, without repressing healthy emotions or creativity</li>
+                                <li>Remain committed, even when lacking inspiration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-left fairness">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🤝</div>
+                        <h3>Fairness</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Enforces objective accountability, guided by perspective-taking, to ensure impartial decisions.</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Shun criticism and partiality</li>
+                                <li>Admit mistakes to prevent double standards and earn trust</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right perseverance">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">💪</div>
+                        <h3>Perseverance</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Maintains exertion and resolve amid hardship or challenge, led by reason not obstinacy.</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Handle fear-response as a skill to refine</li>
+                                <li>Confront fear gradually and recurrently, to edify</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-left self-discipline">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">📈</div>
+                        <h3>Self-Discipline</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Consistent behavior aligned with chosen goals, while avoiding strict austerity and complacency.</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Pursue minor progress even in difficult periods</li>
+                                <li>Adapt interim goals as needed to stay consistent with long-term objectives</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right self-efficacy">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🌟</div>
+                        <h3>Self-Efficacy</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Confidence in one's competence to apply skills effectively; rooted in modest self-assessment.</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Recognize your skills and achievements and integrate them into your sense of self</li>
+                                <li>Treat setbacks as a lack of skill, not as personal flaws</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-left temperance">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">⚡</div>
+                        <h3>Temperance</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Manages stamina as a limited resource, while making sure that it doesn't become an excuse for slacking, evasion, or stagnation</p>
+                        <div class="virtue-examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                <li>Give 80% of your effort to the priorities that you most value</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right self-reflection">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🔄</div>
+                        <h3>Self-Reflection</h3>
+                        <p class="virtue-function"><strong>Function:</strong> Turns lived experiences into lasting insights; avoiding rumination, self-reproach, or decision paralysis.</p>
+                        <div class="virtue-examples">
+                            <strong>Example:</strong>
+                            <ul>
+                                <li>Use value-based "if/then" heuristics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Animation Observer Logic
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.transform = 'translateX(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
