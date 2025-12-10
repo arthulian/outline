@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wisdom Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sage-green: #9CAF88;
+            --warm-beige: #F5F1E8;
+            --deep-navy: #2C3E50;
+            --soft-gold: #D4AF37;
+            --muted-rose: #E8D5D1;
+            --charcoal: #34495E;
+            --light-sage: #B8C5A6;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--warm-beige) 0%, #FEFCF8 100%);
+            color: var(--deep-navy);
+            overflow-x: hidden;
+        }
+        
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--sage-green) 0%, var(--light-sage) 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .virtue-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .virtue-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            z-index: 1;
+        }
+        
+        .virtue-card-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .virtue-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .virtue-card.critical-thinking::before {
+            background-image: url('critical-thinking.png');
+        }
+        
+        .virtue-card.self-mastery::before {
+            background-image: url('self-mastery.png');
+        }
+        
+        .virtue-card.courageous-leadership::before {
+            background-image: url('courageous-leadership.png');
+        }
+        
+        .virtue-card.holistic-vision::before {
+            background-image: url('holistic-vision.png');
+        }
+        
+        .virtue-card.reflective-learning::before {
+            background-image: url('reflective-learning.png');
+        }
+        
+        .virtue-card.creative-problem-solving::before {
+            background-image: url('creative-problem-solving.png');
+        }
+        
+        .virtue-card.intercultural-competence::before {
+            background-image: url('intercultural-competence.png');
+        }
+        
+        .virtue-card.ethical-grounding::before {
+            background-image: url('ethical-grounding.png');
+        }
+        
+        .virtue-card.resilient-adaptability::before {
+            background-image: url('resilient-adaptability.png');
+        }
+        
+        .virtue-card.systems-thinking::before {
+            background-image: url('systems-thinking.png');
+        }
+        
+        .virtue-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .virtue-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--deep-navy);
+        }
+        
+        .virtue-description, .virtue-example {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+        
+        .virtue-description strong, .virtue-example strong {
+            color: var(--sage-green);
+        }
+        
+        .nav-link {
+            position: relative;
+            color: var(--deep-navy);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(156, 175, 136, 0.2);
+            color: var(--sage-green);
+        }
+        
+        .assessment-container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .option-button {
+            background: var(--warm-beige);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .option-button:hover {
+            background: var(--sage-green);
+            color: white;
+            border-color: var(--sage-green);
+        }
+        
+        .option-button.selected {
+            background: var(--sage-green);
+            color: white;
+            border-color: var(--sage-green);
+        }
+        
+        .reflection-tool {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .journal-entry {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            border: 2px solid var(--light-sage);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .journal-entry:focus {
+            outline: none;
+            border-color: var(--sage-green);
+            box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.2);
+        }
+        
+        .timer-display {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--sage-green);
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .mandala-container {
+            width: 300px;
+            height: 300px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .progress-chart {
+            width: 100%;
+            height: 400px;
+            margin: 2rem 0;
+        }
+        
+        .btn-primary {
+            background: var(--sage-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary:hover {
+            background: var(--charcoal);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--sage-green);
+            border: 2px solid var(--sage-green);
+            border-radius: 8px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--sage-green);
+            color: white;
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease forwards;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--deep-navy);
+        }
+        
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: 80vh;
+                padding: 2rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .virtue-card {
+                margin: 0.5rem;
+                padding: 1.5rem;
+                min-height: 350px;
+            }
+            
+            .virtue-card h3 {
+                font-size: 1.25rem;
+            }
+            
+            .timer-display {
+                font-size: 2rem;
+            }
+            
+            .mandala-container {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="serif-font text-xl font-bold text-sage-green">The Wisdom Framework</div>
+                <div class="flex space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#virtues" class="nav-link">Virtues</a>
+                    <a href="#assessment" class="nav-link">Assessment</a>
+                    <a href="#reflection" class="nav-link">Reflection</a>
+                    <a href="#progress" class="nav-link">Progress</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section flex items-center justify-center">
+        <div id="particle-container" class="particle-canvas"></div>
+        <div class="hero-content text-center text-white max-w-4xl mx-auto px-4">
+            <div class="floating-element text-6xl" style="top: 10%; left: 10%;">🧠</div>
+            <div class="floating-element text-4xl" style="top: 20%; right: 15%;">✨</div>
+            <div class="floating-element text-5xl" style="bottom: 20%; left: 20%;">🌱</div>
+            <div class="floating-element text-3xl" style="bottom: 30%; right: 10%;">💡</div>
+            
+            <h1 class="serif-font text-5xl md:text-7xl font-bold mb-6 fade-in">The Wisdom Framework</h1>
+            <p class="text-xl md:text-2xl mb-8 fade-in" style="animation-delay: 0.3s;">A comprehensive system for developing wisdom through ten essential virtues</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in" style="animation-delay: 0.6s;">
+                <a href="#virtues" class="btn-primary">Explore Virtues</a>
+                <a href="#assessment" class="btn-secondary">Take Assessment</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtues Section -->
+    <section id="virtues" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="section-title serif-font fade-in">The Ten Wisdom Virtues</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="virtue-card slide-in-left critical-thinking">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🔍</div>
+                        <h3>Critical Thinking</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Anchors choices in proof, consistency, probability, consensus, and relevant importance.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Tag every assertion as Accurate, Inaccurate, or Partially Accurate</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right self-mastery">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">⚖️</div>
+                        <h3>Self-Mastery</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Governs impulses, emotions, attention, and habits through rational self-direction.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Pause before reacting, asking "What would my wisest self do?"</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-left courageous-leadership">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🦁</div>
+                        <h3>Courageous Leadership</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Takes initiative in the face of uncertainty, risk, or opposition for worthy causes.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Speak truth to power when silence would compromise integrity</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right holistic-vision">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🌍</div>
+                        <h3>Holistic Vision</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Sees the big picture and long-term consequences across interconnected domains.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Consider how today's decision affects all stakeholders in 10 years</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-left reflective-learning">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🔄</div>
+                        <h3>Reflective Learning</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Continuously examines experience to extract insights and improve future decisions.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Conduct after-action reviews asking "What worked? What didn't? Why?"</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right creative-problem-solving">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🎨</div>
+                        <h3>Creative Problem-Solving</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Generates novel solutions by connecting disparate ideas and perspectives.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Apply solutions from other fields to current challenges</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-left intercultural-competence">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🤝</div>
+                        <h3>Intercultural Competence</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Navigates diverse cultural contexts with sensitivity, respect, and effectiveness.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Adapt communication style to honor different cultural norms</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right ethical-grounding">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">⚡</div>
+                        <h3>Ethical Grounding</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Aligns actions with core values and principles, even when costly or unpopular.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Choose the harder right over the easier wrong</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-left resilient-adaptability">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🌱</div>
+                        <h3>Resilient Adaptability</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Bounces back from setbacks and adapts to change while maintaining core purpose.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> View failures as data points for course correction</p>
+                    </div>
+                </div>
+
+                <div class="virtue-card slide-in-right systems-thinking">
+                    <div class="virtue-card-content">
+                        <div class="virtue-icon">🕸️</div>
+                        <h3>Systems Thinking</h3>
+                        <p class="virtue-description"><strong>Function:</strong> Understands complex interactions, feedback loops, and emergent properties.</p>
+                        <p class="virtue-example"><strong>Key Example:</strong> Map unintended consequences before implementing changes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment Section -->
+    <section id="assessment" class="py-20 px-4 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="section-title serif-font fade-in">Wisdom Assessment</h2>
+            <div class="assessment-container fade-in">
+                <div class="text-center mb-8">
+                    <p class="text-lg text-gray-600">Rate yourself on each virtue from 1 (Needs Development) to 5 (Exemplary)</p>
+                    <div class="mt-4">
+                        <span class="text-sm text-gray-500">1 = Rarely demonstrates this virtue</span> | 
+                        <span class="text-sm text-gray-500">3 = Sometimes demonstrates this virtue</span> | 
+                        <span class="text-sm text-gray-500">5 = Consistently exemplifies this virtue</span>
+                    </div>
+                </div>
+                
+                <div id="assessment-questions">
+                    <!-- Questions will be populated by JavaScript -->
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button onclick="calculateResults()" class="btn-primary">Calculate Results</button>
+                    <button onclick="resetAssessment()" class="btn-secondary ml-4">Reset</button>
+                </div>
+                
+                <div id="assessment-results" class="mt-8" style="display: none;">
+                    <h3 class="text-2xl font-bold text-center mb-4">Your Wisdom Profile</h3>
+                    <div id="results-chart" class="progress-chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reflection Section -->
+    <section id="reflection" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title serif-font fade-in">Reflection Tools</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Wisdom Journal -->
+                <div class="reflection-tool fade-in">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center">
+                        <span class="mr-3">📝</span>
+                        Wisdom Journal
+                    </h3>
+                    <p class="text-gray-600 mb-4">Reflect on your experiences and extract wisdom from daily events.</p>
+                    <textarea 
+                        id="journal-entry" 
+                        class="journal-entry" 
+                        placeholder="What wisdom did you gain today? What would you do differently? What patterns do you notice?"
+                    ></textarea>
+                    <div class="flex justify-between items-center mt-4">
+                        <button onclick="saveJournalEntry()" class="btn-primary">Save Entry</button>
+                        <button onclick="viewJournalHistory()" class="btn-secondary">View History</button>
+                    </div>
+                    <div id="journal-history" class="mt-4" style="display: none;">
+                        <h4 class="font-bold mb-2">Previous Entries:</h4>
+                        <div id="journal-entries"></div>
+                    </div>
+                </div>
+
+                <!-- Meditation Timer -->
+                <div class="reflection-tool fade-in">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center">
+                        <span class="mr-3">🧘</span>
+                        Mindful Reflection Timer
+                    </h3>
+                    <p class="text-gray-600 mb-4">Take time for quiet reflection and inner wisdom.</p>
+                    <div class="timer-display" id="timer-display">05:00</div>
+                    <div class="text-center">
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Duration (minutes):</label>
+                            <select id="timer-duration" class="border border-gray-300 rounded-md px-3 py-2">
+                                <option value="5">5 minutes</option>
+                                <option value="10">10 minutes</option>
+                                <option value="15">15 minutes</option>
+                                <option value="20">20 minutes</option>
+                                <option value="30">30 minutes</option>
+                            </select>
+                        </div>
+                        <div class="space-x-4">
+                            <button onclick="startTimer()" class="btn-primary">Start</button>
+                            <button onclick="pauseTimer()" class="btn-secondary">Pause</button>
+                            <button onclick="resetTimer()" class="btn-secondary">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wisdom Mandala -->
+            <div class="reflection-tool mt-8 fade-in">
+                <h3 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-3">🎨</span>
+                    Wisdom Mandala Creator
+                </h3>
+                <p class="text-gray-600 mb-4 text-center">Create a visual representation of your wisdom journey. Click to add elements to your mandala.</p>
+                <div class="text-center mb-4">
+                    <div class="space-x-4">
+                        <button onclick="clearMandala()" class="btn-secondary">Clear Canvas</button>
+                        <button onclick="saveMandala()" class="btn-primary">Save Mandala</button>
+                    </div>
+                </div>
+                <div id="mandala-canvas" class="mandala-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress" class="py-20 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title serif-font fade-in">Wisdom Progress</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="reflection-tool fade-in">
+                    <h3 class="text-2xl font-bold mb-4">Virtue Development Over Time</h3>
+                    <div id="progress-chart" class="progress-chart"></div>
+                </div>
+                
+                <div class="reflection-tool fade-in">
+                    <h3 class="text-2xl font-bold mb-4">Wisdom Insights</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                            <h4 class="font-bold text-blue-800">💡 Insight of the Day</h4>
+                            <p class="text-blue-700 mt-2" id="daily-insight">Loading wisdom insight...</p>
+                        </div>
+                        
+                        <div class="p-4 bg-green-50 rounded-lg border-l-4 border-green-400">
+                            <h4 class="font-bold text-green-800">📈 Growth Area</h4>
+                            <p class="text-green-700 mt-2" id="growth-area">Analyzing your development...</p>
+                        </div>
+                        
+                        <div class="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-400">
+                            <h4 class="font-bold text-purple-800">🎯 Next Focus</h4>
+                            <p class="text-purple-700 mt-2" id="next-focus">Calculating recommendation...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="serif-font text-2xl font-bold mb-4">The Wisdom Framework</h3>
+            <p class="text-gray-300 mb-6">Cultivating wisdom through deliberate practice and reflection</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#home" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                <a href="#virtues" class="text-gray-300 hover:text-white transition-colors">Virtues</a>
+                <a href="#assessment" class="text-gray-300 hover:text-white transition-colors">Assessment</a>
+                <a href="#reflection" class="text-gray-300 hover:text-white transition-colors">Reflection</a>
+                <a href="#progress" class="text-gray-300 hover:text-white transition-colors">Progress</a>
+            </div>
+            <p class="text-gray-400 text-sm">© 2024 The Wisdom Framework. Designed for wisdom cultivation.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Particle animation
+        let particles = [];
+        let particleSketch;
+        
+        particleSketch = function(p) {
+            p.setup = function() {
+                let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+                canvas.parent('particle-container');
+                
+                for (let i = 0; i < 50; i++) {
+                    particles.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        vx: p.random(-1, 1),
+                        vy: p.random(-1, 1),
+                        size: p.random(2, 6),
+                        alpha: p.random(0.3, 0.8)
+                    });
+                }
+            };
+            
+            p.draw = function() {
+                p.clear();
+                
+                for (let particle of particles) {
+                    p.fill(255, 255, 255, particle.alpha * 255);
+                    p.noStroke();
+                    p.ellipse(particle.x, particle.y, particle.size);
+                    
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    if (particle.x < 0 || particle.x > p.width) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > p.height) particle.vy *= -1;
+                }
+            };
+            
+            p.windowResized = function() {
+                p.resizeCanvas(p.windowWidth, p.windowHeight);
+            };
+        };
+        
+        new p5(particleSketch);
+
+        // Assessment functionality
+        const virtues = [
+            'Critical Thinking', 'Self-Mastery', 'Courageous Leadership', 
+            'Holistic Vision', 'Reflective Learning', 'Creative Problem-Solving',
+            'Intercultural Competence', 'Ethical Grounding', 'Resilient Adaptability', 'Systems Thinking'
+        ];
+        
+        let assessmentScores = {};
+        
+        function initializeAssessment() {
+            const container = document.getElementById('assessment-questions');
+            container.innerHTML = '';
+            
+            virtues.forEach((virtue, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.innerHTML = `
+                    <h4 class="font-bold text-lg mb-4">${index + 1}. ${virtue}</h4>
+                    <p class="text-gray-600 mb-4">How consistently do you demonstrate this virtue in your daily life?</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="option-button" onclick="selectOption('${virtue}', 1, this)">1 - Rarely</button>
+                        <button class="option-button" onclick="selectOption('${virtue}', 2, this)">2 - Sometimes</button>
+                        <button class="option-button" onclick="selectOption('${virtue}', 3, this)">3 - Often</button>
+                        <button class="option-button" onclick="selectOption('${virtue}', 4, this)">4 - Usually</button>
+                        <button class="option-button" onclick="selectOption('${virtue}', 5, this)">5 - Always</button>
+                    </div>
+                `;
+                container.appendChild(questionCard);
+            });
+        }
+        
+        function selectOption(virtue, score, button) {
+            assessmentScores[virtue] = score;
+            
+            // Remove selected class from siblings
+            const siblings = button.parentNode.querySelectorAll('.option-button');
+            siblings.forEach(sibling => sibling.classList.remove('selected'));
+            
+            // Add selected class to clicked button
+            button.classList.add('selected');
+        }
+        
+        function calculateResults() {
+            if (Object.keys(assessmentScores).length < virtues.length) {
+                alert('Please answer all questions before calculating results.');
+                return;
+            }
+            
+            const resultsDiv = document.getElementById('assessment-results');
+            resultsDiv.style.display = 'block';
+            
+            // Create chart
+            const chartContainer = document.getElementById('results-chart');
+            const chart = echarts.init(chartContainer);
+            
+            const data = virtues.map(virtue => ({
+                name: virtue,
+                value: assessmentScores[virtue] || 0
+            }));
+            
+            const option = {
+                title: {
+                    text: 'Your Wisdom Virtue Profile',
+                    left: 'center',
+                    textStyle: {
+                        color: '#2C3E50',
+                        fontSize: 18,
+                        fontWeight: 'bold'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: virtues,
+                    axisLabel: {
+                        rotate: 45,
+                        interval: 0,
+                        fontSize: 10
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 0,
+                    max: 5,
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                },
+                series: [{
+                    name: 'Score',
+                    type: 'bar',
+                    data: data.map(item => item.value),
+                    itemStyle: {
+                        color: '#9CAF88'
+                    },
+                    label: {
+                        show: true,
+                        position: 'top'
+                    }
+                }]
+            };
+            
+            chart.setOption(option);
+            
+            // Save results to localStorage
+            localStorage.setItem('wisdomAssessment', JSON.stringify({
+                scores: assessmentScores,
+                timestamp: new Date().toISOString()
+            }));
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function resetAssessment() {
+            assessmentScores = {};
+            document.getElementById('assessment-results').style.display = 'none';
+            
+            // Reset all buttons
+            const buttons = document.querySelectorAll('.option-button');
+            buttons.forEach(button => button.classList.remove('selected'));
+        }
+
+        // Journal functionality
+        function saveJournalEntry() {
+            const entry = document.getElementById('journal-entry').value.trim();
+            if (!entry) {
+                alert('Please write something before saving.');
+                return;
+            }
+            
+            const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+            entries.push({
+                content: entry,
+                timestamp: new Date().toISOString()
+            });
+            
+            localStorage.setItem('journalEntries', JSON.stringify(entries));
+            document.getElementById('journal-entry').value = '';
+            alert('Entry saved successfully!');
+        }
+        
+        function viewJournalHistory() {
+            const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+            const historyDiv = document.getElementById('journal-history');
+            const entriesDiv = document.getElementById('journal-entries');
+            
+            if (entries.length === 0) {
+                entriesDiv.innerHTML = '<p class="text-gray-500">No journal entries yet.</p>';
+            } else {
+                entriesDiv.innerHTML = entries.slice(-5).reverse().map(entry => `
+                    <div class="p-3 bg-gray-50 rounded mb-2">
+                        <p class="text-sm text-gray-600">${new Date(entry.timestamp).toLocaleDateString()}</p>
+                        <p>${entry.content.substring(0, 100)}${entry.content.length > 100 ? '...' : ''}</p>
+                    </div>
+                `).join('');
+            }
+            
+            historyDiv.style.display = historyDiv.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Timer functionality
+        let timerInterval;
+        let timeRemaining = 300; // 5 minutes default
+        let isRunning = false;
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById('timer-display').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                timerInterval = setInterval(() => {
+                    timeRemaining--;
+                    updateTimerDisplay();
+                    
+                    if (timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        alert('Reflection time complete! 🧘‍♀️');
+                        resetTimer();
+                    }
+                }, 1000);
+            }
+        }
+        
+        function pauseTimer() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+            }
+        }
+        
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            const duration = parseInt(document.getElementById('timer-duration').value);
+            timeRemaining = duration * 60;
+            updateTimerDisplay();
+        }
+        
+        // Update timer when duration changes
+        document.getElementById('timer-duration').addEventListener('change', function() {
+            if (!isRunning) {
+                timeRemaining = parseInt(this.value) * 60;
+                updateTimerDisplay();
+            }
+        });
+
+        // Mandala functionality
+        let mandalaSketch;
+        
+        mandalaSketch = function(p) {
+            let mandalaElements = [];
+            
+            p.setup = function() {
+                let canvas = p.createCanvas(300, 300);
+                canvas.parent('mandala-canvas');
+                p.background(245, 241, 232);
+            };
+            
+            p.draw = function() {
+                p.background(245, 241, 232, 50);
+                
+                // Draw existing elements
+                mandalaElements.forEach(element => {
+                    p.fill(element.color);
+                    p.noStroke();
+                    p.ellipse(element.x, element.y, element.size);
+                });
+                
+                // Add subtle animation
+                p.translate(p.width/2, p.height/2);
+                p.rotate(p.frameCount * 0.005);
+                p.translate(-p.width/2, -p.height/2);
+            };
+            
+            p.mousePressed = function() {
+                if (p.mouseX >= 0 && p.mouseX <= p.width && p.mouseY >= 0 && p.mouseY <= p.height) {
+                    mandalaElements.push({
+                        x: p.mouseX,
+                        y: p.mouseY,
+                        size: p.random(10, 30),
+                        color: p.color(p.random(156, 175), p.random(136, 160), p.random(120, 140), 150)
+                    });
+                }
+            };
+        };
+        
+        new p5(mandalaSketch);
+        
+        function clearMandala() {
+            // This will be handled by recreating the sketch
+            location.reload();
+        }
+        
+        function saveMandala() {
+            alert('Mandala saved to your wisdom collection! 🎨');
+        }
+
+        // Progress tracking
+        function updateProgressChart() {
+            const chartContainer = document.getElementById('progress-chart');
+            const chart = echarts.init(chartContainer);
+            
+            // Sample data - in real app this would come from stored assessments
+            const dates = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+            const sampleData = virtues.slice(0, 5).map(virtue => ({
+                name: virtue,
+                data: dates.map(() => Math.floor(Math.random() * 3) + 2)
+            }));
+            
+            const option = {
+                title: {
+                    text: 'Virtue Development Over Time',
+                    left: 'center',
+                    textStyle: {
+                        color: '#2C3E50',
+                        fontSize: 16
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: sampleData.map(item => item.name),
+                    bottom: 0
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '15%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: dates
+                },
+                yAxis: {
+                    type: 'value',
+                    min: 0,
+                    max: 5
+                },
+                series: sampleData.map(item => ({
+                    name: item.name,
+                    type: 'line',
+                    data: item.data,
+                    smooth: true
+                }))
+            };
+            
+            chart.setOption(option);
+        }
+
+        // Wisdom insights
+        function updateWisdomInsights() {
+            const insights = [
+                "True wisdom comes from knowing that you know nothing.",
+                "The only true wisdom is in knowing you know nothing.",
+                "Wisdom begins in wonder.",
+                "The wise man learns more from his enemies than the fool from his friends.",
+                "Knowledge speaks, but wisdom listens."
+            ];
+            
+            const growthAreas = [
+                "Focus on developing your critical thinking skills this week.",
+                "Practice mindful reflection daily to enhance self-mastery.",
+                "Seek opportunities to demonstrate courageous leadership.",
+                "Broaden your perspective to develop holistic vision."
+            ];
+            
+            const nextFocuses = [
+                "Practice the pause before reacting to situations.",
+                "Ask 'what would my wisest self do?' before important decisions.",
+                "Conduct a weekly review of your wisdom development.",
+                "Seek feedback from others about your wisdom virtues."
+            ];
+            
+            document.getElementById('daily-insight').textContent = insights[Math.floor(Math.random() * insights.length)];
+            document.getElementById('growth-area').textContent = growthAreas[Math.floor(Math.random() * growthAreas.length)];
+            document.getElementById('next-focus').textContent = nextFocuses[Math.floor(Math.random() * nextFocuses.length)];
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAssessment();
+            updateTimerDisplay();
+            updateProgressChart();
+            updateWisdomInsights();
+            
+            // Load saved assessment if exists
+            const savedAssessment = localStorage.getItem('wisdomAssessment');
+            if (savedAssessment) {
+                const assessment = JSON.parse(savedAssessment);
+                // Could restore previous assessment here
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animation elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
