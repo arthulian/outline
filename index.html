@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Virtue Cards</title>
+
+<style>
+    /* --- Global Reset --- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #111;
+        font-family: Helvetica, Arial, sans-serif;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    /* --- Card Base --- */
+    .virtue-card {
+        width: 260px;
+        height: 340px;
+        border-radius: 16px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+        background-position: center;
+        backdrop-filter: blur(2px);
+    }
+
+    /* --- Typography (Unified Legibility Rule) --- */
+
+    .virtue-card .virtue-title,
+    .virtue-card .virtue-card-content {
+        color: #ffffff;
+        text-shadow: 0 0 12px rgba(0, 0, 0, 0.65);
+        text-align: center;
+    }
+
+    .virtue-card .virtue-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .virtue-card .virtue-card-content {
+        font-size: 1rem;
+        line-height: 1.35;
+        font-weight: 400;
+    }
+
+    /* --- Optional Mode: Card uses dark text --- */
+    .virtue-card.dark-text .virtue-title,
+    .virtue-card.dark-text .virtue-card-content {
+        color: #111;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.55);
+    }
+
+</style>
+</head>
+<body>
+
+<!-- Example Cards -->
+
+<div class="virtue-card" style="background-image:url('background1.png');">
+    <div class="virtue-title">Critical Thinking</div>
+    <div class="virtue-card-content">Grounds decisions in logic, evidence, and rational evaluation.</div>
+</div>
+
+<div class="virtue-card" style="background-image:url('background2.png');">
+    <div class="virtue-title">Sense-Making</div>
+    <div class="virtue-card-content">Weaves diverse information into a coherent understanding of reality.</div>
+</div>
+
+<!-- Example dark-text usage (only apply if needed) -->
+<div class="virtue-card dark-text" style="background-image:url('dark-background.png');">
+    <div class="virtue-title">Temperance</div>
+    <div class="virtue-card-content">Maintains balance and moderation across emotions and behaviors.</div>
+</div>
+
+</body>
+</html>
