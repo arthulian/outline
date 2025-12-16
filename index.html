@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Background Page</title>
+    <style>
+        body {
+            /* 1. Reset Margins */
+            margin: 0; 
+            padding: 0;
+
+            /* 2. Background Properties */
+            background-image: url('Image.jpeg'); 
+            background-repeat: no-repeat;
+            background-position: top center; 
+            
+            /* 3. Sizing: Image scales to 100% width, height automatically adjusts */
+            background-size: 100% auto; 
+            
+            /* 4. Ensure the body is tall enough */
+            min-height: 100vh; 
+        }
+        
+        /* 5. CRITICAL CHANGE: Increasing the page height to ensure full visibility */
+        body::after {
+            content: '';
+            display: block;
+            /* INCREASED HEIGHT: This is now 3 times the height of the screen */
+            height: 300vh; 
+        }
+    </style>
+</head>
+<body>
+    </body>
+</html>
