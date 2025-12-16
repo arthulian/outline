@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Background Page</title>
+    <style>
+        body {
+            /* 1. Reset Margins */
+            margin: 0; 
+            padding: 0;
+
+            /* 2. Background Properties */
+            background-image: url('Image.jpeg'); /* <-- UPDATED FILE NAME HERE */
+            background-repeat: no-repeat;
+            background-position: top center; 
+            
+            /* 3. CRITICAL CHANGE: Sizing */
+            /* This ensures the entire image fits horizontally while maintaining its aspect ratio. */
+            background-size: 100% auto; 
+            
+            /* 4. Ensure the body is tall enough to contain the image */
+            min-height: 100vh; 
+        }
+        
+        /* Forces the scroll bar to appear to allow viewing the full height of the long image */
+        body::after {
+            content: '';
+            display: block;
+            /* Adjust this height (e.g., 250vh, 300vh, 400vh) if you can't see the bottom of the image */
+            height: 250vh; 
+        }
+    </style>
+</head>
+<body>
+    </body>
+</html>
