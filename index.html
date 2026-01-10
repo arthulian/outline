@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Concepts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chiron+Hei+HK:wght@400;700&family=Quattrocento+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quattrocento Sans', sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+        /* Background Pattern */
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(88, 166, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(63, 185, 80, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(88, 166, 255, 0.02) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header */
+        .header {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Chiron Hei HK', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #58A6FF;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: #8B949E;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* Concepts Grid */
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Concept Card */
+        .concept-card {
+            background: rgba(22, 27, 34, 0.4);
+            border: 1px solid rgba(88, 166, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .concept-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(88, 166, 255, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(88, 166, 255, 0.1);
+        }
+
+        .concept-card.active {
+            border-color: #58A6FF;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(88, 166, 255, 0.2);
+        }
+
+        .concept-number {
+            position: absolute;
+            top: -12px;
+            left: 2rem;
+            background: #58A6FF;
+            color: #0D1117;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            font-family: 'Chiron Hei HK', sans-serif;
+        }
+
+        .concept-title {
+            font-family: 'Chiron Hei HK', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #58A6FF;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .concept-description {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #C9D1D9;
+        }
+
+        .concept-description strong {
+            color: #3FB950;
+            font-weight: 600;
+        }
+
+        /* Expanded Content */
+        .expanded-content {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(88, 166, 255, 0.2);
+            display: none;
+        }
+
+        .expanded-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .expanded-content h4 {
+            color: #3FB950;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .expanded-content p {
+            font-size: 0.95rem;
+            color: #8B949E;
+            line-height: 1.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .concepts-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .concept-card {
+                padding: 1.5rem;
+            }
+
+            .header {
+                padding: 2rem 1rem 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem 3rem;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        .concept-card:focus {
+            outline: 2px solid #58A6FF;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <header class="header">
+        <h1>Cognitive Concepts</h1>
+        <p class="subtitle">Fundamental mechanisms underlying human thought, behavior, and decision-making</p>
+    </header>
+
+    <main class="container">
+        <div class="concepts-grid">
+            <!-- Self-Regulation -->
+            <article class="concept-card" tabindex="0" data-concept="self-regulation">
+                <div class="concept-number">1</div>
+                <h2 class="concept-title">Self-Regulation</h2>
+                <p class="concept-description">
+                    Manages <strong>impulses, attention, and emotions</strong> via a cycle of self-monitoring, analysis and self-adjusting.
+                </p>
+                <div class="expanded-content">
+                    <h4>Key Components</h4>
+                    <p>Continuous monitoring of internal states and behaviors, analyzing effectiveness against desired outcomes, and making strategic adjustments to align actions with goals.</p>
+                </div>
+            </article>
+
+            <!-- Sense-Making -->
+            <article class="concept-card" tabindex="0" data-concept="sense-making">
+                <div class="concept-number">2</div>
+                <h2 class="concept-title">Sense-Making</h2>
+                <p class="concept-description">
+                    Converts <strong>raw data into structured schemas</strong> by integrating sensory (perceptions and internal states) and symbolic (language and concepts) signals, while reconciling their discrepancies, addressing allocentric perspectives, and revising preconceptions.
+                </p>
+                <div class="expanded-content">
+                    <h4>Integration Process</h4>
+                    <p>Integration of sensory experience with abstract representations, reconciling perception-belief discrepancies, and continuously updating mental models.</p>
+                </div>
+            </article>
+
+            <!-- Critical Thinking -->
+            <article class="concept-card" tabindex="0" data-concept="critical-thinking">
+                <div class="concept-number">3</div>
+                <h2 class="concept-title">Critical Thinking</h2>
+                <p class="concept-description">
+                    Evaluates <strong>propositions by estimating their plausibility and reliability</strong>, while assessing whether arguments are logically valid and evidence is relevant to the propositions. This process clarifies the relationships among claims, evidence, and inference, leading to cohesive, well-supported conclusions.
+                </p>
+                <div class="expanded-content">
+                    <h4>Evaluation Framework</h4>
+                    <p>Examines logical structure, source credibility, and evidence relevance to distinguish valid from invalid reasoning and build coherent conclusions.</p>
+                </div>
+            </article>
+
+            <!-- Objectivity -->
+            <article class="concept-card" tabindex="0" data-concept="objectivity">
+                <div class="concept-number">4</div>
+                <h2 class="concept-title">Objectivity</h2>
+                <p class="concept-description">
+                    Mitigates <strong>motivated reasoning by identifying uneven evidentiary standards</strong>, then uniformly applying empirical and rational criteria to all conclusions through self-critique.
+                </p>
+                <div class="expanded-content">
+                    <h4>Bias Mitigation</h4>
+                    <p>Recognizing when personal bias creates uneven evidence standards and applying rational criteria consistently across all judgments.</p>
+                </div>
+            </article>
+
+            <!-- Fairness -->
+            <article class="concept-card" tabindex="0" data-concept="fairness">
+                <div class="concept-number">5</div>
+                <h2 class="concept-title">Fairness</h2>
+                <p class="concept-description">
+                    Applies an <strong>impartial balance between empathy modulated by inferred intent</strong> and accountability modulated by consequence, in reciprocal interactions, regardless of status or perceived moral standing.
+                </p>
+                <div class="expanded-content">
+                    <h4>Balanced Judgment</h4>
+                    <p>Weighing intentions against consequences consistently, without favoring status or condemning moral standing.</p>
+                </div>
+            </article>
+
+            <!-- Self-Reflection -->
+            <article class="concept-card" tabindex="0" data-concept="self-reflection">
+                <div class="concept-number">6</div>
+                <h2 class="concept-title">Self-Reflection</h2>
+                <p class="concept-description">
+                    Causal attribution that involves <strong>separating personal choices from external circumstances</strong>, identifying recurring patterns and controllable levers of influence, and converting insights into action.
+                </p>
+                <div class="expanded-content">
+                    <h4>Attribution Process</h4>
+                    <p>Distinguishing controllable choices from external circumstances and focusing on actionable insights for meaningful change.</p>
+                </div>
+            </article>
+
+            <!-- Self-Efficacy -->
+            <article class="concept-card" tabindex="0" data-concept="self-efficacy">
+                <div class="concept-number">7</div>
+                <h2 class="concept-title">Self-Efficacy</h2>
+                <p class="concept-description">
+                    Grounds <strong>self-belief in past achievements</strong>, frames setbacks as temporary skill gaps rather than personal flaws, and periodically reassesses skills to pit subjective belief against objective competence.
+                </p>
+                <div class="expanded-content">
+                    <h4>Belief Calibration</h4>
+                    <p>Balancing confidence with realism through actual accomplishments and viewing failures as skill development opportunities.</p>
+                </div>
+            </article>
+
+            <!-- Self-Discipline -->
+            <article class="concept-card" tabindex="0" data-concept="self-discipline">
+                <div class="concept-number">8</div>
+                <h2 class="concept-title">Self-Discipline</h2>
+                <p class="concept-description">
+                    The <strong>establishment of priorities and the persistent implementation of goals</strong>, achieved by voluntarily inhibiting "wants" to pursue "shoulds" amid internal conflict, thus aligning behavior to long-term objectives.
+                </p>
+                <div class="expanded-content">
+                    <h4>Goal Alignment</h4>
+                    <p>Prioritizing long-term goals over immediate desires by managing conflict between short-term gratification and deeper objectives.</p>
+                </div>
+            </article>
+
+            <!-- Temperance -->
+            <article class="concept-card" tabindex="0" data-concept="temperance">
+                <div class="concept-number">9</div>
+                <h2 class="concept-title">Temperance</h2>
+                <p class="concept-description">
+                    Allocates <strong>effort according to strategic importance rather than sunk costs</strong>, minimizes unnecessary decision load or temptation exposure, and selects regulation strategies that preserve resources for highest priorities.
+                </p>
+                <div class="expanded-content">
+                    <h4>Resource Management</h4>
+                    <p>Making rational decisions based on future value rather than past investment while reducing decision fatigue.</p>
+                </div>
+            </article>
+
+            <!-- Perseverance -->
+            <article class="concept-card" tabindex="0" data-concept="perseverance">
+                <div class="concept-number">10</div>
+                <h2 class="concept-title">Perseverance</h2>
+                <p class="concept-description">
+                    Goal-directed <strong>persistence of action</strong>, through the overriding of avoidance urges, committing to valued outcomes, and utilizing gradual exposure and skill-development to reduce fear-driven withdrawal.
+                </p>
+                <div class="expanded-content">
+                    <h4>Persistence Strategy</h4>
+                    <p>Sustained effort toward meaningful goals through building tolerance for challenges and developing skills to overcome obstacles.</p>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <script>
+        // Progressive disclosure functionality
+        const conceptCards = document.querySelectorAll('.concept-card');
+        let currentlyExpanded = null;
+
+        conceptCards.forEach(card => {
+            card.addEventListener('click', handleCardClick);
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleCardClick(e);
+                }
+            });
+        });
+
+        function handleCardClick(e) {
+            const card = e.currentTarget;
+            const expandedContent = card.querySelector('.expanded-content');
+            
+            // If this card is already expanded, collapse it
+            if (currentlyExpanded === card) {
+                expandedContent.classList.remove('active');
+                card.classList.remove('active');
+                currentlyExpanded = null;
+                return;
+            }
+
+            // Collapse currently expanded card
+            if (currentlyExpanded) {
+                const prevExpanded = currentlyExpanded.querySelector('.expanded-content');
+                prevExpanded.classList.remove('active');
+                currentlyExpanded.classList.remove('active');
+            }
+
+            // Expand clicked card
+            expandedContent.classList.add('active');
+            card.classList.add('active');
+            currentlyExpanded = card;
+        }
+    </script>
+</body>
+</html>
