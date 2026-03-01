@@ -3,102 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mind PDF - Cognitive Synthesis Architecture</title>
+    <title>Architecture of Cognitive Synthesis</title>
     <style>
         :root {
-            --bg: #f8f9fa; --text: #1a1a1a;
+            --bg: #f4f7f6; --text: #2d3436;
             --l1: #5b6ea3; --l2: #d67d5c; --l3: #89a478; --l4: #cfa862; --l5: #a3859a;
         }
-        body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; padding: 40px; }
-        .container { max-width: 900px; margin: 0 auto; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.5; color: var(--text); background: var(--bg); margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
         
-        /* Consistent Layer Box Pattern */
-        .layer-section { 
-            background: white; 
-            border-left: 8px solid #ccc; 
-            padding: 30px; 
-            margin-bottom: 40px; 
-            border-radius: 0 8px 8px 0; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .layer-1 { border-color: var(--l1); }
-        .layer-2 { border-color: var(--l2); }
-        .layer-3 { border-color: var(--l3); }
-        .layer-4 { border-color: var(--l4); }
-        .layer-5 { border-color: var(--l5); }
+        .header { text-align: center; padding: 60px 20px; background: white; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .header h1 { margin: 0; font-size: 2.2rem; letter-spacing: -0.5px; text-transform: uppercase; color: #1e272e; }
+        .header p { color: #7f8c8d; font-size: 1.1rem; margin-top: 10px; }
 
-        h1 { font-size: 2.5rem; text-transform: uppercase; margin-top: 0; }
-        h2 { font-size: 1.5rem; text-transform: uppercase; margin-top: 0; color: #444; }
-        .cite { color: #888; font-size: 0.8rem; vertical-align: super; margin-left: 4px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        strong { display: block; margin-top: 15px; color: #333; }
+        .layer-card { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #ccc; }
+        .layer-content { padding: 30px; }
+        .layer-title { font-weight: 800; text-transform: uppercase; font-size: 1.2rem; margin-bottom: 15px; display: block; }
+        
+        /* Layer Specific Styling */
+        .layer-1 { border-color: var(--l1); } .layer-1 .layer-title { color: var(--l1); }
+        .layer-2 { border-color: var(--l2); } .layer-2 .layer-title { color: var(--l2); }
+        .layer-3 { border-color: var(--l3); } .layer-3 .layer-title { color: var(--l3); }
+        .layer-4 { border-color: var(--l4); } .layer-4 .layer-title { color: var(--l4); }
+        .layer-5 { border-color: var(--l5); } .layer-5 .layer-title { color: var(--l5); }
+
+        .item-label { font-weight: 700; color: #333; display: block; margin-top: 15px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; }
+        .rule-box { background: #f9f9f9; padding: 15px; border-radius: 6px; border: 1px solid #eee; margin-top: 20px; font-style: italic; }
     </style>
 </head>
 <body>
-<div class="container">
 
-    <header style="text-align: center; margin-bottom: 60px;">
-        [span_0](start_span)<h1>The Architecture of Cognitive Synthesis[span_0](end_span)</h1>
+<div class="container">
+    <header class="header">
+        <h1>The Architecture of Cognitive Synthesis</h1>
         <p>The Operating System of the Synthesized Mind</p>
     </header>
 
-    <section class="layer-section layer-1">
-        [span_1](start_span)<h2>Layer 1.0 - Metacognition[span_1](end_span)</h2>
-        [span_2](start_span)<p><strong>Primary Function:</strong> Identify recurring patterns across the system.[span_2](end_span)</p>
-        [span_3](start_span)<p><strong>Mechanism:</strong> Represent complex patterns symbolically to reduce cognitive load, allowing the mind to map out vast interconnections.[span_3](end_span)</p>
-        [span_4](start_span)<p><strong>Application:</strong> Layer 1.0 observes the overarching behavior pattern, symbols, and connections over time.[span_4](end_span)</p>
-    </section>
+    <div class="layer-card layer-1">
+        <div class="layer-content">
+            <span class="layer-title">Layer 1.0 - Metacognition</span>
+            <span class="item-label">Primary Function:</span>
+            Identify recurring patterns across the system.
+            <span class="item-label">Mechanism:</span>
+            Represent complex patterns symbolically to reduce cognitive load, allowing the mind to map out vast interconnections.
+            <span class="item-label">Application:</span>
+            Layer 1.0 observes the overarching behavior pattern, symbols, and connections over time.
+        </div>
+    </div>
 
-    <section class="layer-section layer-2">
-        [span_5](start_span)[span_6](start_span)<h2>Layer 2.0 - Epistemology[span_5](end_span)[span_6](end_span)</h2>
-        <div class="grid">
-            <div>
-                <strong>1. Uniform Criteria</strong>
-                [span_7](start_span)Apply consistent empirical and rational standards to all conclusions.[span_7](end_span)
+    <div class="layer-card layer-2">
+        <div class="layer-content">
+            <span class="layer-title">Layer 2.0 - Epistemology</span>
+            <div class="grid">
+                <div><strong>1. Uniform Criteria</strong><br>Apply consistent empirical and rational standards to all conclusions.</div>
+                <div><strong>2. Evidence & Likelihood</strong><br>Assess propositions based solely on their likelihood and robustness of evidence.</div>
             </div>
-            <div>
-                <strong>2. Evidence & Likelihood</strong>
-                [span_8](start_span)Assess propositions based solely on their likelihood and robustness of evidence.[span_8](end_span)
+            <span class="item-label">3. Logical Linking</span>
+            Recognize and validate the strict, unbroken links between claims, evidence, and conclusions.
+            <div class="rule-box">
+                <strong>Nuance Bypass:</strong> Carefully evaluate information to strip away framing narratives and cognitive anchors.
             </div>
         </div>
-        <strong>3. Logical Linking</strong>
-        [span_9](start_span)Recognize and validate the strict, unbroken links between claims, evidence, and conclusions.[span_9](end_span)
-        [span_10](start_span)<p><em>Nuance Bypass:</em> Carefully evaluate information to strip away framing narratives and cognitive anchors.[span_10](end_span)</p>
-    </section>
+    </div>
 
-    <section class="layer-section layer-3">
-        [span_11](start_span)[span_12](start_span)<h2>Layer 3.0 - Ethics & Values[span_11](end_span)[span_12](end_span)</h2>
-        <div class="grid">
-            <div>
-                <strong>Objective Guilt (Factual Guilt)</strong>
-                A rational acknowledgment of an error in action. [span_13](start_span)Leads to correction.[span_13](end_span)
+    <div class="layer-card layer-3">
+        <div class="layer-content">
+            <span class="layer-title">Layer 3.0 - Ethics & Values</span>
+            <div class="grid">
+                <div><strong>Objective Guilt</strong><br>A rational acknowledgment of an error. Leads to correction.</div>
+                <div><strong>External Blame (Shame)</strong><br>Sourced from external judgment. Leads to defensiveness.</div>
             </div>
-            <div>
-                <strong>External Blame (Shame)</strong>
-                Sourced from external judgment. [span_14](start_span)Results in feelings of shame; leads to defensiveness.[span_14](end_span)
+            <div class="rule-box">
+                <strong>System Rule:</strong> The synthesized mind processes factual guilt to correct errors, but explicitly rejects shame derived from external blame.
             </div>
         </div>
-        [span_15](start_span)<p><strong>System Rule:</strong> The synthesized mind processes factual guilt to correct errors, but explicitly rejects shame derived from external blame.[span_15](end_span)</p>
-    </section>
+    </div>
 
-    <section class="layer-section layer-4">
-        [span_16](start_span)[span_17](start_span)<h2>Layer 4.0 - Agency & Attribution[span_16](end_span)[span_17](end_span)</h2>
-        [span_18](start_span)<p><strong>Focus on Controllables:</strong> Radically shift attribution to Skill, Effort, and Strategy.[span_18](end_span)</p>
-        [span_19](start_span)<p><strong>The Decoupling Protocol:</strong> Base your persistence purely on ongoing outcomes, not on a referendum of your personal value.[span_19](end_span)</p>
-        [span_20](start_span)<p><strong>System Rule:</strong> When an action fails, the strategy failed, not the identity.[span_20](end_span)</p>
-    </section>
+    <div class="layer-card layer-4">
+        <div class="layer-content">
+            <span class="layer-title">Layer 4.0 - Agency & Attribution</span>
+            <span class="item-label">Focus on Controllables:</span>
+            Radically shift attribution to Skill, Effort, and Strategy.
+            <span class="item-label">The Decoupling Protocol:</span>
+            Base your persistence purely on ongoing outcomes, not on a referendum of your personal value.
+            <div class="rule-box">
+                <strong>System Rule:</strong> When an action fails, the strategy failed, not the identity.
+            </div>
+        </div>
+    </div>
 
-    <section class="layer-section layer-5">
-        [span_21](start_span)[span_22](start_span)<h2>Layer 5.0 - Psychological Flexibility[span_21](end_span)[span_22](end_span)</h2>
-        [span_23](start_span)<p><strong>Cognitive Defusion:</strong> Train the system to treat internal experiences (thoughts and emotions) strictly as informational data points.[span_23](end_span)</p>
-        [span_24](start_span)<p><strong>Revoke Command Authority:</strong> A thought is an internal event to be observed, not a mandatory command requiring immediate obedience.[span_24](end_span)</p>
-        <p><strong>Mechanism:</strong> When anticipated negative outcomes fail to occur, the brain's predictive models are forced to update (Expectancy Violation).</p>
-    </section>
-
-    <footer style="text-align: center; margin-top: 60px; padding: 20px; border-top: 1px solid #ddd;">
-        <p>A synthesized mind is equipped with the precise architecture to process, calibrate, and regulate reality exactly as it is.</p>
-    </footer>
-
+    <div class="layer-card layer-5">
+        <div class="layer-content">
+            <span class="layer-title">Layer 5.0 - Psychological Flexibility</span>
+            <span class="item-label">Cognitive Defusion:</span>
+            Train the system to treat internal experiences (thoughts and emotions) strictly as informational data points.
+            <span class="item-label">Revoke Command Authority:</span>
+            A thought is an internal event to be observed, not a mandatory command requiring immediate obedience.
+            <span class="item-label">Mechanism:</span>
+            When anticipated negative outcomes fail to occur, the brain's predictive models are forced to update (Expectancy Violation).
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
