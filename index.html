@@ -1,135 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mind PDF - Cognitive Synthesis Architecture</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs" type="module"></script>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #f8f9fa;
-    }
-    #container {
-      width: 100%;
-      min-height: 100vh;
-      overflow-y: auto;
-      padding: 20px 0;
-      box-sizing: border-box;
-    }
-    #loading, #error {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.4em;
-      padding: 24px 32px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      background: white;
-      z-index: 10;
-    }
-    #error {
-      background: #ffebee;
-      color: #c62828;
-      border: 1px solid #ef5350;
-      max-width: 90%;
-      text-align: center;
-    }
-    canvas {
-      display: block;
-      margin: 30px auto;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      border-radius: 6px;
-      background: white;
-      image-rendering: crisp-edges; /* Helps sharpness on some browsers */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind PDF - Cognitive Synthesis Architecture</title>
+    <style>
+        :root {
+            --bg: #f8f9fa; --text: #1a1a1a;
+            --l1: #5b6ea3; --l2: #d67d5c; --l3: #89a478; --l4: #cfa862; --l5: #a3859a;
+        }
+        body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; padding: 40px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        /* Consistent Layer Box Pattern */
+        .layer-section { 
+            background: white; 
+            border-left: 8px solid #ccc; 
+            padding: 30px; 
+            margin-bottom: 40px; 
+            border-radius: 0 8px 8px 0; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .layer-1 { border-color: var(--l1); }
+        .layer-2 { border-color: var(--l2); }
+        .layer-3 { border-color: var(--l3); }
+        .layer-4 { border-color: var(--l4); }
+        .layer-5 { border-color: var(--l5); }
+
+        h1 { font-size: 2.5rem; text-transform: uppercase; margin-top: 0; }
+        h2 { font-size: 1.5rem; text-transform: uppercase; margin-top: 0; color: #444; }
+        .cite { color: #888; font-size: 0.8rem; vertical-align: super; margin-left: 4px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        strong { display: block; margin-top: 15px; color: #333; }
+    </style>
 </head>
 <body>
-  <div id="container">
-    <div id="loading">Loading Mind PDF (12 pages)...</div>
-    <div id="error" style="display: none;">
-      Failed to load or render the PDF.<br>
-      <a href="https://cdn.jsdelivr.net/gh/arthulian/outline@main/mind.pdf" style="color: #d32f2f; font-weight: bold;">Download mind.pdf</a>
-      <br><br>
-      <small>Details will appear in browser console (F12).</small>
-    </div>
-  </div>
+<div class="container">
 
-  <script type="module">
-    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs';
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+    <header style="text-align: center; margin-bottom: 60px;">
+        [span_0](start_span)<h1>The Architecture of Cognitive Synthesis[span_0](end_span)</h1>
+        <p>The Operating System of the Synthesized Mind</p>
+    </header>
 
-    // Reliable CDN URL for your PDF
-    const pdfUrl = 'https://cdn.jsdelivr.net/gh/arthulian/outline@main/mind.pdf';
+    <section class="layer-section layer-1">
+        [span_1](start_span)<h2>Layer 1.0 - Metacognition[span_1](end_span)</h2>
+        [span_2](start_span)<p><strong>Primary Function:</strong> Identify recurring patterns across the system.[span_2](end_span)</p>
+        [span_3](start_span)<p><strong>Mechanism:</strong> Represent complex patterns symbolically to reduce cognitive load, allowing the mind to map out vast interconnections.[span_3](end_span)</p>
+        [span_4](start_span)<p><strong>Application:</strong> Layer 1.0 observes the overarching behavior pattern, symbols, and connections over time.[span_4](end_span)</p>
+    </section>
 
-    const loadingTask = pdfjsLib.getDocument(pdfUrl);
+    <section class="layer-section layer-2">
+        [span_5](start_span)[span_6](start_span)<h2>Layer 2.0 - Epistemology[span_5](end_span)[span_6](end_span)</h2>
+        <div class="grid">
+            <div>
+                <strong>1. Uniform Criteria</strong>
+                [span_7](start_span)Apply consistent empirical and rational standards to all conclusions.[span_7](end_span)
+            </div>
+            <div>
+                <strong>2. Evidence & Likelihood</strong>
+                [span_8](start_span)Assess propositions based solely on their likelihood and robustness of evidence.[span_8](end_span)
+            </div>
+        </div>
+        <strong>3. Logical Linking</strong>
+        [span_9](start_span)Recognize and validate the strict, unbroken links between claims, evidence, and conclusions.[span_9](end_span)
+        [span_10](start_span)<p><em>Nuance Bypass:</em> Carefully evaluate information to strip away framing narratives and cognitive anchors.[span_10](end_span)</p>
+    </section>
 
-    loadingTask.promise.then(pdf => {
-      console.log(`PDF loaded successfully — ${pdf.numPages} pages`);
+    <section class="layer-section layer-3">
+        [span_11](start_span)[span_12](start_span)<h2>Layer 3.0 - Ethics & Values[span_11](end_span)[span_12](end_span)</h2>
+        <div class="grid">
+            <div>
+                <strong>Objective Guilt (Factual Guilt)</strong>
+                A rational acknowledgment of an error in action. [span_13](start_span)Leads to correction.[span_13](end_span)
+            </div>
+            <div>
+                <strong>External Blame (Shame)</strong>
+                Sourced from external judgment. [span_14](start_span)Results in feelings of shame; leads to defensiveness.[span_14](end_span)
+            </div>
+        </div>
+        [span_15](start_span)<p><strong>System Rule:</strong> The synthesized mind processes factual guilt to correct errors, but explicitly rejects shame derived from external blame.[span_15](end_span)</p>
+    </section>
 
-      const container = document.getElementById('container');
-      document.getElementById('loading').style.display = 'none';
+    <section class="layer-section layer-4">
+        [span_16](start_span)[span_17](start_span)<h2>Layer 4.0 - Agency & Attribution[span_16](end_span)[span_17](end_span)</h2>
+        [span_18](start_span)<p><strong>Focus on Controllables:</strong> Radically shift attribution to Skill, Effort, and Strategy.[span_18](end_span)</p>
+        [span_19](start_span)<p><strong>The Decoupling Protocol:</strong> Base your persistence purely on ongoing outcomes, not on a referendum of your personal value.[span_19](end_span)</p>
+        [span_20](start_span)<p><strong>System Rule:</strong> When an action fails, the strategy failed, not the identity.[span_20](end_span)</p>
+    </section>
 
-      // High-DPI support for sharper rendering
-      const dpr = window.devicePixelRatio || 1;  // 1 on normal screens, 2+ on Retina/4K
-      console.log(`Device pixel ratio: ${dpr}`);
+    <section class="layer-section layer-5">
+        [span_21](start_span)[span_22](start_span)<h2>Layer 5.0 - Psychological Flexibility[span_21](end_span)[span_22](end_span)</h2>
+        [span_23](start_span)<p><strong>Cognitive Defusion:</strong> Train the system to treat internal experiences (thoughts and emotions) strictly as informational data points.[span_23](end_span)</p>
+        [span_24](start_span)<p><strong>Revoke Command Authority:</strong> A thought is an internal event to be observed, not a mandatory command requiring immediate obedience.[span_24](end_span)</p>
+        <p><strong>Mechanism:</strong> When anticipated negative outcomes fail to occur, the brain's predictive models are forced to update (Expectancy Violation).</p>
+    </section>
 
-      // Render each page
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        pdf.getPage(pageNum).then(page => {
-          // 1. Natural viewport at scale 1
-          const naturalViewport = page.getViewport({ scale: 1.0 });
+    <footer style="text-align: center; margin-top: 60px; padding: 20px; border-top: 1px solid #ddd;">
+        <p>A synthesized mind is equipped with the precise architecture to process, calibrate, and regulate reality exactly as it is.</p>
+    </footer>
 
-          // 2. Calculate base scale to fit container width
-          const margin = 60; // total left + right padding
-          const targetWidth = container.clientWidth - margin;
-          let scale = targetWidth / naturalViewport.width;
-
-          // Minimum scale floor to keep text readable/sharp
-          scale = Math.max(0.35, scale);  // Adjust 0.35–0.5 as needed for your taste
-
-          // 3. Final viewport with computed scale
-          const viewport = page.getViewport({ scale });
-
-          // 4. Create high-res canvas
-          const canvas = document.createElement('canvas');
-          canvas.width = viewport.width * dpr;
-          canvas.height = viewport.height * dpr;
-          canvas.style.width = `${viewport.width}px`;
-          canvas.style.height = `${viewport.height}px`;
-
-          const ctx = canvas.getContext('2d');
-          ctx.scale(dpr, dpr);  // Scale context to match boosted resolution
-
-          container.appendChild(canvas);
-
-          // 5. Render
-          const renderContext = {
-            canvasContext: ctx,
-            viewport: viewport,
-            enableWebGL: true  // Optional: can help performance/quality in some cases
-          };
-
-          page.render(renderContext).promise.then(() => {
-            console.log(`Page ${pageNum} rendered at scale ${scale.toFixed(3)} (DPR: ${dpr})`);
-          }).catch(renderErr => {
-            console.error(`Render error on page ${pageNum}:`, renderErr);
-          });
-        }).catch(pageErr => {
-          console.error(`Failed to get page ${pageNum}:`, pageErr);
-        });
-      }
-    }).catch(err => {
-      console.error('PDF loading failed:', err);
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('error').style.display = 'block';
-      document.getElementById('error').innerHTML += `<br><br>Error: ${err.message || 'Unknown error'}`;
-    });
-  </script>
+</div>
 </body>
 </html>
