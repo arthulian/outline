@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outline - Mind PDF</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs" type="module"></script>
+  <style>
+    body { margin: 0; padding: 0; height: 100vh; }
+    #pdf-viewer { width: 100%; height: 100%; overflow: auto; }
+  </style>
+</head>
+<body>
+  <canvas id="pdf-viewer"></canvas> <!-- or use div for multi-page -->
+
+  <script type="module">
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.mjs';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
+
+    const url = 'mind.pdf'; // or full CDN: 'https://cdn.jsdelivr.net/gh/arthulian/outline@main/mind.pdf'
+
+    const loadingTask = pdfjsLib.getDocument(url);
+    loadingTask.promise.then(pdf => {
+      console.log('PDF loaded, pages:', pdf.numPages); // should log 12
+      // Render all pages (simple loop example)
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        pdf.getPage(pageNum).then(page => {
+          const scale = 1.5;
+          const viewport = page.getViewport({scale});
+          const canvas = document.createElement('canvas');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          document.getElementById('pdf-viewer').appendChild(canvas);
+          const renderContext = { canvasContext: canvas.getContext('2d'), viewport };
+          page.render(renderContext);
+        });
+      }
+    }).catch(err => console.error('PDF load error:', err));
+  </script>
+</body>
+</html>
