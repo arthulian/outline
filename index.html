@@ -45,6 +45,7 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
       border-radius: 6px;
       background: white;
+      image-rendering: crisp-edges; /* Helps sharpness on some browsers */
     }
   </style>
 </head>
@@ -74,37 +75,48 @@
       const container = document.getElementById('container');
       document.getElementById('loading').style.display = 'none';
 
+      // High-DPI support for sharper rendering
+      const dpr = window.devicePixelRatio || 1;  // 1 on normal screens, 2+ on Retina/4K
+      console.log(`Device pixel ratio: ${dpr}`);
+
       // Render each page
       for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
         pdf.getPage(pageNum).then(page => {
-          // 1. Get natural dimensions (scale 1.0)
+          // 1. Natural viewport at scale 1
           const naturalViewport = page.getViewport({ scale: 1.0 });
 
-          // 2. Calculate scale to fit container width with margin
-          const margin = 60; // total left + right padding in pixels
+          // 2. Calculate base scale to fit container width
+          const margin = 60; // total left + right padding
           const targetWidth = container.clientWidth - margin;
           let scale = targetWidth / naturalViewport.width;
 
-          // Optional: set a reasonable minimum scale so text doesn't become microscopic
-          scale = Math.max(0.28, scale); // ~0.28–0.45 is typical for 960pt wide slides
+          // Minimum scale floor to keep text readable/sharp
+          scale = Math.max(0.35, scale);  // Adjust 0.35–0.5 as needed for your taste
 
-          // 3. Apply the computed scale
+          // 3. Final viewport with computed scale
           const viewport = page.getViewport({ scale });
 
-          // 4. Create canvas
+          // 4. Create high-res canvas
           const canvas = document.createElement('canvas');
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
+          canvas.width = viewport.width * dpr;
+          canvas.height = viewport.height * dpr;
+          canvas.style.width = `${viewport.width}px`;
+          canvas.style.height = `${viewport.height}px`;
+
+          const ctx = canvas.getContext('2d');
+          ctx.scale(dpr, dpr);  // Scale context to match boosted resolution
+
           container.appendChild(canvas);
 
           // 5. Render
           const renderContext = {
-            canvasContext: canvas.getContext('2d'),
-            viewport: viewport
+            canvasContext: ctx,
+            viewport: viewport,
+            enableWebGL: true  // Optional: can help performance/quality in some cases
           };
 
           page.render(renderContext).promise.then(() => {
-            console.log(`Page ${pageNum} rendered at scale ${scale.toFixed(3)} (natural width: ${naturalViewport.width} pt)`);
+            console.log(`Page ${pageNum} rendered at scale ${scale.toFixed(3)} (DPR: ${dpr})`);
           }).catch(renderErr => {
             console.error(`Render error on page ${pageNum}:`, renderErr);
           });
