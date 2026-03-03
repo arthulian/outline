@@ -6,15 +6,15 @@
     <title>Architecture of Cognitive Synthesis</title>
     <style>
         :root {
-            --bg: #f4f7f6; --text: #2d3436;
+            --bg: black; --text: limegreen; /* Updated for high contrast */
             --l1: #5b6ea3; --l2: #d67d5c; --l3: #89a478; --l4: #cfa862; --l5: #a3859a;
         }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.5; color: var(--text); background: var(--bg); margin: 0; padding: 20px; }
         .container { max-width: 800px; margin: 0 auto; }
-        .header { text-align: center; padding: 60px 20px; background: white; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .header h1 { margin: 0; font-size: 2.2rem; letter-spacing: -0.5px; text-transform: uppercase; color: #1e272e; }
-        .header p { color: #7f8c8d; font-size: 1.1rem; margin-top: 10px; }
-        .layer-card { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #ccc; }
+        .header { text-align: center; padding: 60px 20px; background: #222; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .header h1 { margin: 0; font-size: 2.2rem; letter-spacing: -0.5px; text-transform: uppercase; color: white; }
+        .header p { color: limegreen; font-size: 1.1rem; margin-top: 10px; }
+        .layer-card { background: #333; border-radius: 12px; overflow: hidden; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #ccc; }
         .layer-content { padding: 30px; }
         .layer-title { font-weight: 800; text-transform: uppercase; font-size: 1.2rem; margin-bottom: 15px; display: block; }
         /* Layer Specific Styling */
@@ -23,9 +23,9 @@
         .layer-3 { border-color: var(--l3); } .layer-3 .layer-title { color: var(--l3); }
         .layer-4 { border-color: var(--l4); } .layer-4 .layer-title { color: var(--l4); }
         .layer-5 { border-color: var(--l5); } .layer-5 .layer-title { color: var(--l5); }
-        .item-label { font-weight: 700; color: #333; display: block; margin-top: 15px; }
+        .item-label { font-weight: 700; color: limegreen; display: block; margin-top: 15px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; }
-        .rule-box { background: #f9f9f9; padding: 15px; border-radius: 6px; border: 1px solid #eee; margin-top: 20px; font-style: italic; }
+        .rule-box { background: #444; padding: 15px; border-radius: 6px; border: 1px solid #555; margin-top: 20px; font-style: italic; color: white; }
     </style>
 </head>
 <body>
