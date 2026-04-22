@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Humility-Based Integrity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a2332;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 60px;
+            position: relative;
+        }
+
+        /* Top accent bar */
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background-color: #00bfa5;
+        }
+
+        /* ===== PAGE 1: HERO ===== */
+        .hero {
+            text-align: center;
+            padding-top: 40px;
+            padding-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            line-height: 1.15;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .hero-subtitle {
+            font-size: 17px;
+            font-style: italic;
+            color: #00bfa5;
+            margin-bottom: 35px;
+            letter-spacing: 0.3px;
+        }
+
+        .pillars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 25px;
+        }
+
+        .pillar {
+            flex: 1;
+            padding: 18px 15px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            line-height: 1.5;
+        }
+
+        .pillar:nth-child(1) {
+            background-color: #00897b;
+        }
+
+        .pillar:nth-child(2) {
+            background-color: #00a693;
+        }
+
+        .pillar:nth-child(3) {
+            background-color: #00bfa5;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 14px;
+            color: #8a9bb3;
+            margin-bottom: 40px;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== SECTION HEADINGS ===== */
+        .section-heading {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00bfa5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        /* ===== ACCURACY BEFORE EGO BOX ===== */
+        .accuracy-box {
+            border: 2px solid #00bfa5;
+            padding: 20px 25px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .accuracy-box h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00bfa5;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .accuracy-box p {
+            font-size: 13px;
+            color: #8a9bb3;
+            font-style: italic;
+        }
+
+        /* ===== THREE COLUMN CARDS ===== */
+        .three-col {
+            display: flex;
+            gap: 0;
+            margin-bottom: 30px;
+        }
+
+        .card-left {
+            flex: 1;
+            padding: 18px 20px;
+            border-left: 3px solid #00bfa5;
+            border-top: 1px solid #3a4a5c;
+            border-bottom: 1px solid #3a4a5c;
+            border-right: 1px solid #3a4a5c;
+            background-color: #1e2d3d;
+        }
+
+        .card-left h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #00bfa5;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .card-left p {
+            font-size: 12.5px;
+            color: #b0c0d3;
+            line-height: 1.6;
+        }
+
+        /* ===== STRESS-TESTING METHODS ===== */
+        .stress-heading {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00bfa5;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+        }
+
+        .two-col {
+            display: flex;
+            gap: 0;
+            margin-bottom: 50px;
+        }
+
+        .method-card {
+            flex: 1;
+            padding: 18px 20px;
+            border-left: 3px solid #5a6a7c;
+            background-color: #1e2d3d;
+            border-top: 1px solid #3a4a5c;
+            border-bottom: 1px solid #3a4a5c;
+        }
+
+        .method-card:first-child {
+            border-right: 1px solid #3a4a5c;
+        }
+
+        .method-card:last-child {
+            border-left: 3px solid #5a6a7c;
+        }
+
+        .method-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e0e8f0;
+            margin-bottom: 8px;
+        }
+
+        .method-card p {
+            font-size: 12.5px;
+            color: #b0c0d3;
+            line-height: 1.6;
+        }
+
+        /* ===== PAGE BREAK ===== */
+        .page-divider {
+            height: 1px;
+            background-color: #2a3a4c;
+            margin: 40px 0;
+        }
+
+        /* ===== PAGE 2: INTERNAL-STATE REGULATION ===== */
+        .identity-box {
+            border: 2px solid #00bfa5;
+            padding: 20px 25px;
+            margin-bottom: 30px;
+            background-color: #1e2d3d;
+        }
+
+        .identity-box h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #e0e8f0;
+            margin-bottom: 8px;
+        }
+
+        .identity-box p {
+            font-size: 13px;
+            color: #b0c0d3;
+            line-height: 1.6;
+        }
+
+        /* ===== EFFORT ALLOCATION ===== */
+        .effort-allocation {
+            display: flex;
+            gap: 0;
+            margin-bottom: 35px;
+        }
+
+        .effort-box {
+            flex: 1;
+            padding: 18px 15px;
+            text-align: center;
+        }
+
+        .effort-box.controllable {
+            background-color: #2e7d32;
+        }
+
+        .effort-box.partial {
+            background-color: #f9a825;
+            color: #1a2332;
+        }
+
+        .effort-box.uncontrollable {
+            background-color: #c62828;
+        }
+
+        .effort-box h4 {
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .effort-box p {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .effort-box.partial h4,
+        .effort-box.partial p {
+            color: #1a2332;
+        }
+
+        /* ===== SELF-ESTEEM ANCHORS ===== */
+        .anchors-row {
+            display: flex;
+            gap: 0;
+            margin-bottom: 40px;
+        }
+
+        .anchor-secure {
+            flex: 1;
+            padding: 20px 22px;
+            background-color: #1e3a2f;
+            border: 1px solid #2e7d32;
+        }
+
+        .anchor-insecure {
+            flex: 1;
+            padding: 20px 22px;
+            background-color: #3a1e25;
+            border: 1px solid #c62828;
+            border-left: none;
+        }
+
+        .anchor-label {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .anchor-secure .anchor-label {
+            color: #66bb6a;
+        }
+
+        .anchor-insecure .anchor-label {
+            color: #ef5350;
+        }
+
+        .check-mark {
+            margin-right: 5px;
+        }
+
+        .anchor-secure p {
+            font-size: 12.5px;
+            color: #b0c0d3;
+            line-height: 1.6;
+        }
+
+        .anchor-insecure p {
+            font-size: 12.5px;
+            color: #b0c0d3;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .anchor-insecure p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ===== ADAPTIVE RESILIENCE GRADIENT HEADING ===== */
+        .resilience-heading {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00bfa5 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+
+        /* ===== STRESS TYPES ===== */
+        .stress-types {
+            display: flex;
+            gap: 0;
+            margin-bottom: 30px;
+        }
+
+        .stress-box {
+            flex: 1;
+            padding: 20px 22px;
+        }
+
+        .stress-box.distress {
+            background-color: #3a1e25;
+            border: 1px solid #c62828;
+        }
+
+        .stress-box.optimal {
+            background-color: #1e3a2f;
+            border: 1px solid #2e7d32;
+            border-left: none;
+        }
+
+        .stress-box h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stress-box.distress h4 {
+            color: #ef5350;
+        }
+
+        .stress-box.optimal h4 {
+            color: #66bb6a;
+        }
+
+        .stress-box p {
+            font-size: 12.5px;
+            color: #b0c0d3;
+            line-height: 1.6;
+        }
+
+        .bullet-distress {
+            color: #ef5350;
+            margin-right: 6px;
+            font-size: 14px;
+        }
+
+        .bullet-optimal {
+            color: #66bb6a;
+            margin-right: 6px;
+            font-size: 14px;
+        }
+
+        /* ===== SELF-ESTEEM CYCLE ===== */
+        .cycle-heading {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00bfa5;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+
+        .cycle-row {
+            display: flex;
+            gap: 0;
+            margin-bottom: 18px;
+        }
+
+        .cycle-step {
+            flex: 1;
+            padding: 18px 15px;
+            text-align: center;
+            border-left: 1px solid #3a4a5c;
+        }
+
+        .cycle-step:first-child {
+            border-left: none;
+        }
+
+        .cycle-step:nth-child(odd) {
+            background-color: #1e2d3d;
+        }
+
+        .cycle-step:nth-child(even) {
+            background-color: #243545;
+        }
+
+        .cycle-step h4 {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #e0e8f0;
+            margin-bottom: 8px;
+        }
+
+        .cycle-step p {
+            font-size: 11.5px;
+            color: #b0c0d3;
+            line-height: 1.5;
+        }
+
+        .cycle-note {
+            font-size: 13px;
+            font-style: italic;
+            color: #00bfa5;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .key-insight {
+            border: 2px solid #00bfa5;
+            padding: 18px 25px;
+            margin-bottom: 40px;
+        }
+
+        .key-insight p {
+            font-size: 13px;
+            color: #b0c0d3;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .key-insight strong {
+            color: #00bfa5;
+        }
+
+        /* ===== PAGE 3: INTEGRATION ===== */
+        .integration-heading {
+            font-size: 32px;
+            font-weight: 700;
+            color: #00bfa5;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .integration-subtitle {
+            font-size: 17px;
+            font-style: italic;
+            color: #8a9bb3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .action-cards {
+            display: flex;
+            gap: 0;
+            margin-bottom: 35px;
+        }
+
+        .action-card {
+            flex: 1;
+            padding: 25px 20px;
+            text-align: center;
+            border-top: 3px solid #00bfa5;
+            background-color: #1e2d3d;
+            border-left: 1px solid #3a4a5c;
+            border-right: 1px solid #3a4a5c;
+            border-bottom: 1px solid #3a4a5c;
+        }
+
+        .action-card h4 {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #00bfa5;
+            margin-bottom: 15px;
+            letter-spacing: 0.8px;
+        }
+
+        .action-card p {
+            font-size: 12.5px;
+            color: #b0c0d3;
+            line-height: 1.6;
+        }
+
+        .quote {
+            font-size: 16px;
+            font-style: italic;
+            color: #00bfa5;
+            text-align: center;
+            margin-bottom: 35px;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        .divider-line {
+            height: 2px;
+            background-color: #00bfa5;
+            width: 60%;
+            margin: 0 auto 25px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 13px;
+            color: #8a9bb3;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding-bottom: 30px;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            body {
+                background-color: #1a2332;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .page {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .page {
+                padding: 30px 25px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .pillars {
+                flex-direction: column;
+            }
+            .three-col,
+            .two-col,
+            .effort-allocation,
+            .anchors-row,
+            .stress-types,
+            .cycle-row,
+            .action-cards {
+                flex-direction: column;
+            }
+            .anchor-insecure {
+                border-left: 1px solid #c62828;
+                border-top: none;
+            }
+            .stress-box.optimal {
+                border-left: 1px solid #2e7d32;
+                border-top: none;
+            }
+            .method-card:last-child {
+                border-left: 3px solid #5a6a7c;
+                border-top: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== PAGE 1 ===== -->
+    <div class="page">
+        <div class="hero">
+            <h1>HUMILITY-BASED<br>INTEGRITY</h1>
+            <p class="hero-subtitle">A Framework for Clear Thinking, Emotional Balance & Adaptive Growth</p>
+
+            <div class="pillars">
+                <div class="pillar">MINDSET<br>STANDARDS</div>
+                <div class="pillar">INTERNAL-STATE<br>REGULATION</div>
+                <div class="pillar">ADAPTIVE<br>RESILIENCE</div>
+            </div>
+
+            <p class="tagline">Accuracy before Ego • Evidence over Emotion • Growth through Humility</p>
+        </div>
+
+        <h2 class="section-heading">MINDSET STANDARDS</h2>
+
+        <div class="accuracy-box">
+            <h3>ACCURACY BEFORE EGO</h3>
+            <p>Prioritize being correct over being "right" or feeling correct</p>
+        </div>
+
+        <div class="three-col">
+            <div class="card-left">
+                <h4>Systematic<br>Skepticism</h4>
+                <p>Maintain systematic skepticism of your own reasoning to avoid bias and blind spots.</p>
+            </div>
+            <div class="card-left">
+                <h4>Identify Falsifiers</h4>
+                <p>Identify potential falsifiers before committing to conclusions.</p>
+            </div>
+            <div class="card-left">
+                <h4>Objective Evaluation</h4>
+                <p>Use objective evaluation; avoid motivated reasoning fueled by ego-based desires.</p>
+            </div>
+        </div>
+
+        <h3 class="stress-heading">STRESS-TESTING METHODS</h3>
+
+        <div class="two-col">
+            <div class="method-card">
+                <h4>Steelman + Mirror Test</h4>
+                <p>Accurately reconstruct opposing arguments, then evaluate whether they meet their own standard for truth.</p>
+            </div>
+            <div class="method-card">
+                <h4>Confidence Calibration</h4>
+                <p>Align certainty with quality of evidence. High confidence requires strong evidence; update proportionally to new data.</p>
+            </div>
+        </div>
+
+        <div class="page-divider"></div>
+
+        <!-- ===== PAGE 2 ===== -->
+        <h2 class="section-heading">INTERNAL-STATE REGULATION</h2>
+
+        <div class="identity-box">
+            <h3>Disentangling Identity</h3>
+            <p>Observe thoughts and emotions as data without conflating them with your identity. You are not your thoughts; you are the observer of them.</p>
+        </div>
+
+        <h3 class="stress-heading">EFFORT ALLOCATION</h3>
+
+        <div class="effort-allocation">
+            <div class="effort-box controllable">
+                <h4>CONTROLLABLE</h4>
+                <p>Apply maximum effort where actions directly affect outcomes</p>
+            </div>
+            <div class="effort-box partial">
+                <h4>PARTIALLY CONTROLLABLE</h4>
+                <p>Adjust effort based on level of influence</p>
+            </div>
+            <div class="effort-box uncontrollable">
+                <h4>UNCONTROLLABLE</h4>
+                <p>Do not expend energy; redirect toward controllable factors</p>
+            </div>
+        </div>
+
+        <h3 class="stress-heading">SELF-ESTEEM ANCHORS</h3>
+
+        <div class="anchors-row">
+            <div class="anchor-secure">
+                <div class="anchor-label"><span class="check-mark">&#10003;</span> SECURE</div>
+                <p>Self-worth grounded in positive self-regard rooted in healthy relationships with mutual respect, trust, emotional regulation, self-disclosure, and effective conflict repair.</p>
+            </div>
+            <div class="anchor-insecure">
+                <div class="anchor-label"><span class="check-mark">&#10007;</span> ANXIOUS</div>
+                <p>Self-worth dependent on external validation or achievement</p>
+                <div class="anchor-label"><span class="check-mark">&#10007;</span> AVOIDANT</div>
+                <p>Self-worth tied to performative self-reliance</p>
+            </div>
+        </div>
+
+        <h2 class="resilience-heading">ADAPTIVE RESILIENCE</h2>
+
+        <h3 class="stress-heading">STRESS TYPES</h3>
+
+        <div class="stress-types">
+            <div class="stress-box distress">
+                <h4><span class="bullet-distress">&#9632;</span> DISTRESS (Sympathetic Overdrive)</h4>
+                <p>Reduce triggers, step back, return to baseline. Chronic activation harms health and decision quality.</p>
+            </div>
+            <div class="stress-box optimal">
+                <h4><span class="bullet-optimal">&#10022;</span> OPTIMAL STRESS (Goldilocks Zone)</h4>
+                <p>Channel into productive effort. The inverted-U curve where moderate stress enhances focus and performance.</p>
+            </div>
+        </div>
+
+        <h3 class="cycle-heading">SELF-ESTEEM CYCLE</h3>
+
+        <div class="cycle-row">
+            <div class="cycle-step">
+                <h4>1. ACTION</h4>
+                <p>Build competence through deliberate practice</p>
+            </div>
+            <div class="cycle-step">
+                <h4>2. INTERPRETATION</h4>
+                <p>Attribute outcomes to effort and strategy (not luck or fixed traits)</p>
+            </div>
+            <div class="cycle-step">
+                <h4>3. CONFIDENCE</h4>
+                <p>Update self-efficacy based on evidence, not emotion</p>
+            </div>
+            <div class="cycle-step">
+                <h4>4. EXPANSION</h4>
+                <p>Increased capability enables harder challenges</p>
+            </div>
+        </div>
+
+        <p class="cycle-note">&#9632; This virtuous cycle compounds: small wins &rarr; evidence-based confidence &rarr; greater challenges &rarr; mastery</p>
+
+        <div class="key-insight">
+            <p><strong>KEY INSIGHT:</strong> Resilience is not bouncing back &mdash; it is growing forward through calibrated effort, accurate self-appraisal, and deliberate skill-building.</p>
+        </div>
+
+        <div class="page-divider"></div>
+
+        <!-- ===== PAGE 3 ===== -->
+        <h2 class="integration-heading">INTEGRATION & DAILY PRACTICE</h2>
+        <p class="integration-subtitle">Putting Humility-Based Integrity into Practice</p>
+
+        <div class="action-cards">
+            <div class="action-card">
+                <h4>MINDSET IN ACTION</h4>
+                <p>Before concluding, ask: What would falsify this? Am I steelmanning the other side? Is my confidence proportional to evidence?</p>
+            </div>
+            <div class="action-card">
+                <h4>REGULATION IN ACTION</h4>
+                <p>Label the emotion as data. Sort effort by controllability. Anchor self-worth in secure relationships, not outcomes or performance.</p>
+            </div>
+            <div class="action-card">
+                <h4>RESILIENCE IN ACTION</h4>
+                <p>Convert distress to optimal stress. Run the self-esteem cycle deliberately. Treat setbacks as data for the next iteration.</p>
+            </div>
+        </div>
+
+        <p class="quote">"Humility is not thinking less of yourself &mdash; it is thinking of yourself less, while seeing yourself more accurately."</p>
+
+        <div class="divider-line"></div>
+
+        <p class="footer">HUMILITY-BASED INTEGRITY &#8226; Accuracy &#8226; Evidence &#8226; Growth</p>
+    </div>
+
+</body>
+</html>
